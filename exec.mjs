@@ -140,7 +140,7 @@ if (argv.c) {
 
     await setup(d)
 
-    _.eachLimit(d, 8, function(m, end) {
+    _.eachLimit(d, args.p ? args.p : 8, function(m, end) {
         _.waterfall([
             (callback) => {
                 check.push(
