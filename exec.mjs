@@ -7,7 +7,7 @@ import * as _ from "async"
 const HOME = os.homedir()
 const LOCAL = "pending"
 const REMOTE = "GDAP:/XXX SRC"
-const RCLONE = ["--fast-list", "--drive-chunk-size", "32M", "--drive-upload-cutoff", "256M", "--tpslimit", "8", "--transfers", "4"]
+const RCLONE = ["--fast-list", "--drive-chunk-size", "256M", "--drive-upload-cutoff", "1024M", "--tpslimit", "8", "--transfers", "4"]
 const ARIA = ["--retry-wait", "5", "--auto-file-renaming=false", "--stream-piece-selector=inorder"]
 const AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:103.0) Gecko/20100101 Firefox/103.0"
 
