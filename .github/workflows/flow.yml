@@ -2,18 +2,14 @@ name: Flow
 on: [workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Init
-        run: chmod +x ./init.sh && ./init.sh
-
       - name: Setup
-        uses: joshlarsen/ssh-tunnel-action@main
-        with:
-          timeout: 3h
-          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-          ngrok_token: ${{ secrets.NGROK_TOKEN }}
+        run: chmod +x ./init.sh && ./init.sh
+        env: 
+          SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
