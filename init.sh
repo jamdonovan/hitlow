@@ -23,5 +23,5 @@ sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin;
 mkdir ~/.ssh; "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
 #chmod 755 ~; chmod 600 ~/.ssh/authorized_keys
 
-ngrok authtoken $NGROK_TOKEN;
-ngrok tcp 22;
+/usr/local/bin/ngrok authtoken $NGROK_TOKEN;
+/usr/local/bin/ngrok tcp 22;
