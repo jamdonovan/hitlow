@@ -21,7 +21,6 @@ curl -sO https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz;
 sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin;
 
 mkdir ~/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
-#chmod 755 ~; chmod 600 ~/.ssh/authorized_keys
 
-ngrok authtoken $NGROK_TOKEN;
+ ngrok authtoken $NGROK_TOKEN &> \dev\null;
  ngrok tcp 22 &> \dev\null;
