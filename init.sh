@@ -24,10 +24,4 @@ mkdir ~/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
 #chmod 755 ~; chmod 600 ~/.ssh/authorized_keys
 
 ngrok authtoken $NGROK_TOKEN;
-ngrok tcp 22 &> \dev\null &
-
-while true
-do
-    echo "Running ..."
-    sleep 10
-done
+ ngrok tcp 22 &> \dev\null;
