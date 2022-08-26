@@ -2,8 +2,8 @@ name: Flow
 on: [workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    runs-on: ubuntu-18.04
+    timeout-minutes: 180
     steps:
       - name: Checkout
         uses: actions/checkout@v2
