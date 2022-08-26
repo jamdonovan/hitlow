@@ -1,8 +1,8 @@
 name: Flow
-on: [workflow_dispatch]
+on: [push, workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
       - name: Checkout
