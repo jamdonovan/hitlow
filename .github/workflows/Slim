@@ -1,0 +1,15 @@
+name: Slim
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: mac-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup
+        run: chmod +x ./init.sh && ./init.sh
+        env: 
+          SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
