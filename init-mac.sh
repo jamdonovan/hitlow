@@ -21,7 +21,7 @@ mkdir $HOME/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
 sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist;
 sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist;
 
-echo -e "e\ne" | sudo passwd "${USER}";
+echo -e "M12345678m\nM12345678m" | sudo passwd "${USER}";
 
 ngrok authtoken $NGROK_TOKEN;
 ngrok tcp 22 &> \dev\null &
