@@ -13,7 +13,7 @@ jobs:
         
       - name: Setup
         run: |
-          chmod +x ./clean.sh && mv clean.sh ~/clean.sh;
+          chmod +x ./clean.sh && mv clean.sh $HOME/clean.sh;
           chmod +x ./init.sh && ./init.sh; 
         env: 
           SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
