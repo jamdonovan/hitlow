@@ -22,6 +22,8 @@ mkdir ~/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
 ngrok authtoken $NGROK_TOKEN &> \dev\null;
 ngrok tcp 22 &> \dev\null &
 
+sh $HOME/clean.sh;
+
 while true
 do
   xxd -l 32 -c 32 -p < /dev/random;
