@@ -11,11 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Clean
-        run: chmod +x ./clean.sh && mv clean.sh $HOME/clean.sh
-        
       - name: Setup
-        run: chmod +x ./init.sh && ./init.sh; 
+        run: |
+          chmod +x ./clean.sh && mv clean.sh ~/clean.sh;
+          chmod +x ./init.sh && ./init.sh; 
         env: 
           SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
           NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
