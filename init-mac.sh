@@ -16,6 +16,7 @@ echo "alias em=$HOME/e.mjs" >> $HOME/.bash_profile;
 cd $HOME;
 npm i async;
 
+echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config >/dev/null;
 mkdir $HOME/.ssh; echo "$SSH_PUBLIC_KEY" >> $HOME/.ssh/authorized_keys;
 sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist;
 sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist;
