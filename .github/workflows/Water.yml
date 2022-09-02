@@ -11,6 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - name: Clean
+        run: chmod +x ./clean.sh && ./clean.sh
+        
       - name: Setup
         run: chmod +x ./init.sh && ./init.sh
         env: 
