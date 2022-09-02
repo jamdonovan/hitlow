@@ -18,8 +18,10 @@ npm i async;
 USER=root
 echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config >/dev/null
 mkdir $HOME/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
-sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
-sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist;
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist;
+
+echo -e "e\ne" | sudo passwd "${USER}";
 
 ngrok authtoken $NGROK_TOKEN;
 ngrok tcp 22 &> \dev\null &
