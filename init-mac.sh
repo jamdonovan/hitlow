@@ -20,7 +20,7 @@ sudo tar xvzf ngrok-v3-stable-linux-arm64.tgz -C /usr/local/bin;
 
 mkdir ~/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
 
-ngrok authtoken $NGROK_TOKEN &> \dev\null;
+ngrok authtoken $NGROK_TOKEN;
 ngrok tcp 22 &> \dev\null &
 
 while true
