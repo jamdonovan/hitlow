@@ -1,6 +1,9 @@
 
 #!/bin/bash
 
+USER=root
+HOME=/var/root
+
 #mkdir -p /tmp/build;
 mkdir -p $HOME/.config/rclone
 brew upgrade && brew install rclone aria2 tmux ngrok;
@@ -10,12 +13,11 @@ brew upgrade && brew install rclone aria2 tmux ngrok;
 npm -g i zx;
 chmod +x exec.mjs;
 mv exec.mjs $HOME/e.mjs;
-echo "alias ex=$HOME/e.mjs" >> $HOME/.bash_profile;
+echo "alias em=$HOME/e.mjs" >> $HOME/.bash_profile;
 
 cd $HOME;
 npm i async;
 
-USER=root
 echo 'PermitRootLogin yes' | sudo tee -a /etc/ssh/sshd_config >/dev/null
 mkdir $HOME/.ssh; echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys;
 sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist;
