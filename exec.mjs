@@ -16,7 +16,7 @@ const BIN_RCLONE = "rclone"
 const BIN_FFMPEG = "ffmpeg"
 const BIN_MTN = "mtn"
 
-const SRV_FILE = "srv.json"
+const SRV_FILE = "srv"
 
 let toFile = (t) =>  t.path + "." + (t.ext ? t.ext : "mp4")
 let toFull = (t) => path.join(HOME, LOCAL, toFile(t))
