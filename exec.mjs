@@ -27,12 +27,12 @@ let listen = async () => {
     let extra = []
     
     if (
-        fs.existsSync(src)
+        fs.existsSync(srv)
     ) {
-        extra.push("--drive-service-account-file", SRV_FILE)
+        extra.push("--drive-service-account-file", srv)
     }
     
-    await $`${BIN_RCLONE} --verbose --progress --no-update-modtime --rc-no-auth ${extra} ${RCLONE} rcd ${REMOTE}`
+    await $`${BIN_RCLONE} --verbose --progress --no-update-modtime --rc-no-auth ${RCLONE} ${extra} rcd ${REMOTE}`
 }
 
 let setup = async (data) => {
