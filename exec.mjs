@@ -16,12 +16,23 @@ const BIN_RCLONE = "rclone"
 const BIN_FFMPEG = "ffmpeg"
 const BIN_MTN = "mtn"
 
+const SRV_FILE = "srv.json"
+
 let toFile = (t) =>  t.path + "." + (t.ext ? t.ext : "mp4")
 let toFull = (t) => path.join(HOME, LOCAL, toFile(t))
 let toDst = (t) => path.join(REMOTE, toFile(t))
 
 let listen = async () => {
-    await $`${BIN_RCLONE} --verbose --progress --no-update-modtime --rc-no-auth ${RCLONE} rcd ${REMOTE}`
+    let srv = path.join(HOME, SRV_FILE)
+    let extra = []
+    
+    if (
+        fs.existsSync(src)
+    ) {
+        extra.push("--drive-service-account-file", SRV_FILE)
+    }
+    
+    await $`${BIN_RCLONE} --verbose --progress --no-update-modtime --rc-no-auth ${extra} ${RCLONE} rcd ${REMOTE}`
 }
 
 let setup = async (data) => {
