@@ -127,18 +127,25 @@ let upload = _.queue(async (task) => {
     }
 }, 4)
 
+let clean = _.queue(async (task) => {
+    let dst = toDst(task)
+    
+    try {
+        await $`${BIN_RCLONE} rc operations/delete fs=${dst}`
+    } catch(e) {
+        console.log(e)
+    }
+    
+    return task
+}, 6)
+
 let remove = _.queue(async (task) => {
     let full = toFull(task)
 
     await $`rm ${full}`
 
     return task
-}, 12)
-
-if (argv.m) {
-    let m = await fs.readJson(argv.m)
-    console.log(m)
-}
+}, 6)
 
 if (argv.l) {
     console.log(`-- ${BIN_RCLONE.toUpperCase()} --`)
@@ -151,7 +158,7 @@ if (argv.c) {
 
     await setup(d)
 
-    _.eachLimit(d, argv.p ? argv.p : 8, function(m, end) {
+    _.eachLimit(d, argv.p ? argv.p : 6, function(m, end) {
         _.waterfall([
             (callback) => {
                 check.push(
@@ -231,6 +238,20 @@ if (argv.c) {
             )
 
             end()
+        })
+    })
+}
+
+if (argv.purge) {
+    let m = await fs.readJson(argv.purge)
+    let d = m.data
+    
+    d.forEach((v) => {
+        clean.push(v, function (e, r) {
+            console.log(
+                chalk.yellow("PURGE"),
+                chalk.blue(v.path)
+            )
         })
     })
 }
