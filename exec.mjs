@@ -127,11 +127,11 @@ let upload = _.queue(async (task) => {
     }
 }, 4)
 
-let clean = _.queue(async (task) => {
-    let dst = toDst(task)
+let purge = _.queue(async (task) => {
+    let dst = path.join("/", toFile(task))
     
     try {
-        await $`${BIN_RCLONE} rc operations/delete fs=${dst}`
+        await $`${BIN_RCLONE} rc operations/deletefile fs=${REMOTE} remote=${dst}`
     } catch(e) {
         console.log(e)
     }
@@ -247,7 +247,7 @@ if (argv.purge) {
     let d = m.data
     
     d.forEach((v) => {
-        clean.push(v, function (e, r) {
+        purge.push(v, function (e, r) {
             console.log(
                 chalk.yellow("PURGE"),
                 chalk.blue(v.path)
