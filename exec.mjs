@@ -6,7 +6,8 @@ import * as _ from "async"
 
 const HOME = os.homedir()
 const LOCAL = "pending"
-const REMOTE = "GDAP:/XXX SRC"
+const VOD = "GDVP:/XXX SRC"
+const META = "GDMP:/XXX SRC"
 const RCLONE = ["--fast-list", "--drive-chunk-size", "128M", "--drive-upload-cutoff", "512M", "--tpslimit", "8", "--transfers", "4"]
 const ARIA = ["--retry-wait", "5", "--auto-file-renaming=false", "--stream-piece-selector=inorder"]
 const AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:103.0) Gecko/20100101 Firefox/103.0"
@@ -20,7 +21,8 @@ const SRV_FILE = "srv"
 
 let toFile = (t) =>  t.path + "." + (t.ext ? t.ext : "mp4")
 let toFull = (t) => path.join(HOME, LOCAL, toFile(t))
-let toDst = (t) => path.join(REMOTE, toFile(t))
+let toRemote = (t) => (t.ext == "jpg") ? META : VOD
+let toDst = (t) => path.join(toRemote(t), toFile(t))
 
 let listen = async () => {
     let srv = path.join(HOME, SRV_FILE)
@@ -32,7 +34,7 @@ let listen = async () => {
         extra.push("--drive-service-account-file", srv)
     }
     
-    await $`${BIN_RCLONE} --verbose --progress --no-update-modtime --rc-no-auth ${RCLONE} ${extra} rcd ${REMOTE}`
+    await $`${BIN_RCLONE} --verbose --progress --no-update-modtime --rc-no-auth ${RCLONE} ${extra} rcd`
 }
 
 let setup = async (data) => {
@@ -101,6 +103,7 @@ let snap = _.queue(async (task) => {
 let upload = _.queue(async (task) => {
     let full = toFull(task)
     let dst = path.join("/", toFile(task))
+    let remote = toRemote(task)
 
     if (
         !fs.existsSync(full)
@@ -108,7 +111,7 @@ let upload = _.queue(async (task) => {
         return task
     }
 
-    let job = JSON.parse(await $`${BIN_RCLONE} rc operations/copyfile srcFs=/ srcRemote=${full} dstFs=${REMOTE} dstRemote=${dst} _async=true`)
+    let job = JSON.parse(await $`${BIN_RCLONE} rc operations/copyfile srcFs=/ srcRemote=${full} dstFs=${remote} dstRemote=${dst} _async=true`)
 
     if (job && (job.jobid === 0 || job.jobid) ) {
         let id = job.jobid
@@ -129,9 +132,10 @@ let upload = _.queue(async (task) => {
 
 let purge = _.queue(async (task) => {
     let dst = path.join("/", toFile(task))
+    let remote = toRemote(task)
     
     try {
-        await $`${BIN_RCLONE} rc operations/deletefile fs=${REMOTE} remote=${dst}`
+        await $`${BIN_RCLONE} rc operations/deletefile fs=${remote} remote=${dst}`
     } catch(e) {
         console.log(e)
     }
