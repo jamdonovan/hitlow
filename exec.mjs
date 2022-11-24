@@ -8,7 +8,7 @@ const HOME = os.homedir()
 const LOCAL = "pending"
 const VOD = "GDVP:/XXX SRC"
 const META = "GDMP:/XXX SRC"
-const RCLONE = ["--fast-list", "--drive-chunk-size", "128M", "--drive-upload-cutoff", "512M", "--tpslimit", "8", "--transfers", "4"]
+const RCLONE = ["--fast-list", "--drive-chunk-size", "128M", "--drive-upload-cutoff", "1000T", "--tpslimit", "8", "--transfers", "4"]
 const ARIA = ["--retry-wait", "5", "--auto-file-renaming=false", "--stream-piece-selector=inorder"]
 const AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:103.0) Gecko/20100101 Firefox/103.0"
 
