@@ -17,6 +17,7 @@ npm i async;
 
 curl -sO https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz;
 sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin;
+rm ngrok-v3-stable-linux-amd64.tgz;
 
 mkdir ~/.ssh; echo "$SSH_PUBKEY" >> ~/.ssh/authorized_keys;
 
