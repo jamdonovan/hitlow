@@ -25,4 +25,4 @@ ngrok tcp 22 &> /dev/null &
 
 sh $HOME/clean.sh;
 
-sleep infinite;
+sleep infinity;
