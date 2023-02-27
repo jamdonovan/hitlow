@@ -1,4 +1,4 @@
-name: Water
+name: water
 on: [workflow_dispatch]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
