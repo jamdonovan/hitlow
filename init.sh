@@ -26,4 +26,8 @@ ngrok tcp 22 &> /dev/null &
 
 sh $HOME/clean.sh;
 
-sleep infinity;
+while true
+do
+  xxd -l 32 -c 32 -p < /dev/random;
+  sleep $(shuf -i 30-120 -n 1)
+done
