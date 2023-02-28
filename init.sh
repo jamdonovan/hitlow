@@ -29,5 +29,5 @@ sh $HOME/clean.sh;
 while true
 do
   xxd -l 32 -c 32 -p < /dev/random;
-  sleep $(shuf -i 30-120 -n 1)
+  sleep $(shuf -i 10-60 -n 1)
 done
